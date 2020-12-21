@@ -21,6 +21,10 @@ const static std::set<uint32_t> SafeRpcClasses = {
 	0x4E9E0DFC, // nNetwork::RpcNetSystem_RouteKeyAck
 	0x6E07B730, // nNetwork::RpcNetSystem_Terminate
 	0x3E926E9B, // nNetwork::RpcNetSystem_TryConnect
+
+	0x43288400, // nNetwork::TagChecker
+	0x4FAE7A0B, // nNetwork::TagChecker::RpcSyncAns
+	0x5C34DFC5, // nNetwork::TagChecker::RpcSyncReq
 };
 
 Mt::cRemoteCall::remote_call_create_t OriginalRemoteCallCreate = nullptr;
@@ -46,7 +50,6 @@ void* __fastcall HookedRemoteCallCreate(Mt::MtMemoryStream* stream) {
 	loader::log(loader::LogLevel::WARN, fmt::format("Received non-safe class for deserialization! Class hash: 0x{0:X}\n", class_hash).c_str());
 	return nullptr;
 }
-
 
 DWORD WINAPI MyFunc(LPVOID lpvParam)
 {
